@@ -1,18 +1,19 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { getCurrentUser } from "../../common/api/auth";
 
-const AuthLayout = () => {
+const MainLayout = () => {
   const isAuthenticated = getCurrentUser();
 
-  if (isAuthenticated) {
-    return <Navigate to="/todo" replace />;
+  if (!isAuthenticated) {
+    return <Navigate to="/signin" replace />;
   }
+
   return (
     <div>
-      AuthLayout
+      MainLayout
       <Outlet />
     </div>
   );
 };
 
-export default AuthLayout;
+export default MainLayout;

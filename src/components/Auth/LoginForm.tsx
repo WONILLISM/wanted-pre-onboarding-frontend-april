@@ -25,8 +25,7 @@ const LoginForm = () => {
     const loginResponse = await login(form);
 
     if (loginResponse.result === "fail") return;
-
-    navigate("/todo");
+    navigate("/todo", { replace: true });
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {

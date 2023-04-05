@@ -83,6 +83,6 @@ export const register = async ({
 export const getCurrentUser = () => {
   const token = localStorage.getItem("accessToken");
 
-  if (token) return token;
-  return null;
+  if (token) return true;
+  return false;
 };
