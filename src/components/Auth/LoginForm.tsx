@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../common/api/auth";
+import AuthForm from "./AuthForm";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div>
+    <AuthForm authType="login">
       <form noValidate onSubmit={handleSubmit}>
         <div>
           <input
@@ -85,7 +86,7 @@ const LoginForm = () => {
           로그인
         </button>
       </form>
-    </div>
+    </AuthForm>
   );
 };
 
