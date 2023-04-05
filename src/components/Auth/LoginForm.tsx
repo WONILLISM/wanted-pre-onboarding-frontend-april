@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../common/api/login";
+import { login } from "../../common/api/auth";
 
 const LoginForm = () => {
   const navigate = useNavigate();
