@@ -14,8 +14,13 @@ export const login = async ({
 }): Promise<LoginResult> => {
   try {
     const response = await apiClient.post("/auth/signin", {
-      email: email,
-      password: password,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: {
+        email: email,
+        password: password,
+      },
     });
 
     localStorage.setItem("accessToken", response.data.access_token);
@@ -23,12 +28,15 @@ export const login = async ({
       result: "success",
     };
   } catch (error) {
-    const { response } = error as unknown as AxiosError;
+    return {
+      result: "fail",
+    };
+    // const { response } = error as unknown as AxiosError;
 
-    if (response) {
-      throw { status: response.status, data: response.data };
-    }
+    // if (response) {
+    //   throw { status: response.status, data: response.data };
+    // }
 
-    throw error;
+    // throw error;
   }
 };

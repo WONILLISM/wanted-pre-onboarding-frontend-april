@@ -1,27 +1,34 @@
 import { AxiosError } from "axios";
 import apiClient from ".";
 
+interface RegisterResult {
+  result: "success" | "fail";
+}
+
 export const register = async ({
   email,
   password,
 }: {
   email: string;
   password: string;
-}) => {
+}): Promise<RegisterResult> => {
   try {
     const response = await apiClient.post("/auth/signup", {
-      email: email,
-      password: password,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: {
+        email: email,
+        password: password,
+      },
     });
 
-    return response;
+    return {
+      result: "success",
+    };
   } catch (error) {
-    const { response } = error as unknown as AxiosError;
-
-    if (response) {
-      throw { status: response.status, data: response.data };
-    }
-
-    throw error;
+    return {
+      result: "fail",
+    };
   }
 };

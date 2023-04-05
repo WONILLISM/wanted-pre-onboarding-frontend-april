@@ -22,10 +22,9 @@ const RegisterForm = () => {
     e.preventDefault();
 
     const res = await register(form);
-    console.log(res);
-    if (res.status === 201) {
-      navigate("/signin");
-    }
+
+    if (res.result === "fail") return;
+    navigate("/signin");
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
