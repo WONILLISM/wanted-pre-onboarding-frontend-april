@@ -16,21 +16,25 @@ export const login = async ({
   password: string;
 }): Promise<LoginResult> => {
   try {
-    const response = await apiClient.post("/auth/signin", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: {
+    const response = await apiClient.post(
+      "/auth/signin",
+      {
         email: email,
         password: password,
       },
-    });
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     localStorage.setItem("accessToken", response.data.access_token);
     return {
       result: "success",
     };
   } catch (error) {
+    console.log(error);
     return {
       result: "fail",
     };
@@ -52,22 +56,33 @@ export const register = async ({
   password: string;
 }): Promise<RegisterResult> => {
   try {
-    const response = await apiClient.post("/auth/signup", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: {
+    const response = await apiClient.post(
+      "/auth/signup",
+      {
         email: email,
         password: password,
       },
-    });
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     return {
       result: "success",
     };
   } catch (error) {
+    console.log(error);
     return {
       result: "fail",
     };
   }
+};
+
+export const getCurrentUser = () => {
+  const token = localStorage.getItem("accessToken");
+
+  if (token) return token;
+  return null;
 };
