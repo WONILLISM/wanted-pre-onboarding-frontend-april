@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../common/api/login";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState<{ email: string; password: string }>({
     email: "",
     password: "",
@@ -15,10 +19,14 @@ const LoginForm = () => {
   const emailRegex = /\S+@\S+/;
   const passwordRegex = /^.{8,}$/;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(form);
+    const loginResponse = await login(form);
+
+    if (loginResponse.result === "fail") return;
+
+    navigate("/todo");
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
