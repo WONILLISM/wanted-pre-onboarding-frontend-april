@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { register } from "../../common/api/register";
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState<{ email: string; password: string }>({
     email: "",
     password: "",
@@ -15,10 +18,14 @@ const RegisterForm = () => {
   const emailRegex = /\S+@\S+/;
   const passwordRegex = /^.{8,}$/;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(form);
+    const res = await register(form);
+    console.log(res);
+    if (res.status === 201) {
+      navigate("/signin");
+    }
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
