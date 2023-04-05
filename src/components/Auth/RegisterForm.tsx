@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const [form, setForm] = useState<{ email: string; password: string }>({
     email: "",
     password: "",
@@ -71,15 +71,15 @@ const LoginForm = () => {
           <div>{passwordHelpText}</div>
         </div>
         <button
-          data-testid="signin-button"
+          data-testid="signun-button"
           type="submit"
           disabled={!isEmailValid || !isPasswordValid}
         >
-          로그인
+          회원가입
         </button>
       </form>
     </div>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

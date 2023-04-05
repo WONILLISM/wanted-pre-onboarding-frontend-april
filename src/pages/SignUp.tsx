@@ -1,15 +1,8 @@
 import React from "react";
+import RegisterForm from "../components/Auth/RegisterForm";
 
 const SignUp = () => {
-  return (
-    <div>
-      <form>
-        <input data-testid="email-input" />
-        <input data-testid="password-input" />
-        <button data-testid="signup-button">회원가입</button>
-      </form>
-    </div>
-  );
+  return <RegisterForm />;
 };
 
 export default SignUp;
