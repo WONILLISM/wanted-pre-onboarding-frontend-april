@@ -1,13 +1,10 @@
 import React from "react";
+import LoginForm from "../components/Auth/LoginForm";
 
 const SignIn = () => {
   return (
     <div>
-      <form>
-        <input data-testid="email-input" />
-        <input data-testid="password-input" />
-        <button data-testid="signin-button">로그인</button>
-      </form>
+      <LoginForm />
     </div>
   );
 };
