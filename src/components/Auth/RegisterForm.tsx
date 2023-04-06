@@ -89,7 +89,7 @@ const RegisterForm = () => {
         />
         <ActionArea>
           <SubmitButton
-            data-testid="signin-button"
+            data-testid="signup-button"
             type="submit"
             disabled={!isEmailValid || !isPasswordValid}
           >
