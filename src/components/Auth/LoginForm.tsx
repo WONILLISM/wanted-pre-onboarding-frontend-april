@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import { login } from "../../common/api/auth";
+import SubmitButton from "../Inputs/SubmitButton";
 import TextField from "../Inputs/TextField";
 import AuthForm from "./AuthForm";
+
+const ActionArea = styled.div`
+  margin-top: 16px;
+  display: flex;
+`;
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -81,13 +88,15 @@ const LoginForm = () => {
           onChange={handlePasswordChange}
           required
         />
-        <button
-          data-testid="signin-button"
-          type="submit"
-          disabled={!isEmailValid || !isPasswordValid}
-        >
-          로그인
-        </button>
+        <ActionArea>
+          <SubmitButton
+            data-testid="signin-button"
+            type="submit"
+            disabled={!isEmailValid || !isPasswordValid}
+          >
+            LOGIN
+          </SubmitButton>
+        </ActionArea>
       </form>
     </AuthForm>
   );
