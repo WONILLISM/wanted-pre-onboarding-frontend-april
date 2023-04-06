@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../common/api/auth";
+import TextField from "../Inputs/TextField";
 import AuthForm from "./AuthForm";
 
 const LoginForm = () => {
@@ -58,26 +59,28 @@ const LoginForm = () => {
   return (
     <AuthForm authType="login">
       <form noValidate onSubmit={handleSubmit}>
-        <div>
-          <input
-            data-testid="email-input"
-            type="email"
-            name="email"
-            onChange={handleEmailChange}
-            required
-          />
-          <div>{emailHelpText}</div>
-        </div>
-        <div>
-          <input
-            data-testid="password-input"
-            type="password"
-            name="password"
-            onChange={handlePasswordChange}
-            required
-          />
-          <div>{passwordHelpText}</div>
-        </div>
+        <TextField
+          data-testid="email-input"
+          type="email"
+          name="email"
+          label="Email"
+          value={form.email}
+          helpText={emailHelpText}
+          isValid={isEmailValid}
+          onChange={handleEmailChange}
+          required
+        />
+        <TextField
+          data-testid="password-input"
+          type="password"
+          name="password"
+          label="Password"
+          value={form.password}
+          helpText={passwordHelpText}
+          isValid={isPasswordValid}
+          onChange={handlePasswordChange}
+          required
+        />
         <button
           data-testid="signin-button"
           type="submit"
