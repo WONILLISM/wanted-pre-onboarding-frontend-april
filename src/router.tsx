@@ -5,7 +5,7 @@ import AuthLayout from "./components/Layouts/AuthLayout";
 import MainLayout from "./components/Layouts/MainLayout";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import Todo from "./pages/Todo";
+import TodoList from "./pages/TodoList";
 
 const Router = () => {
   return (
@@ -16,7 +16,7 @@ const Router = () => {
           <Route path="/signup" element={<SignUp />} />
         </Route>
         <Route element={<MainLayout />}>
-          <Route path="/todo" element={<Todo />} />
+          <Route path="/todo" element={<TodoList />} />
         </Route>
       </Routes>
     </BrowserRouter>
