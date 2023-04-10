@@ -22,6 +22,12 @@ const TodoItem = ({ todo }: Props) => {
           checked={isCompleted}
           onChange={handleIsCompletedChange}
         />
+        <button data-testid="modify-button" type="button">
+          update
+        </button>
+        <button data-testid="delete-button" type="button">
+          delete
+        </button>
       </label>
     </li>
   );
