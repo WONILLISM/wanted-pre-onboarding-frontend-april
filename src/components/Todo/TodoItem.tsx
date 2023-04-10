@@ -1,14 +1,12 @@
-import React, { ChangeEvent, useState } from "react";
 import { Todo } from "../../common/interfaces/todo";
 import { deleteTodo } from "../../common/api/todo";
 import { getCurrentUser } from "../../common/api/auth";
+import UpdateTodo from "./UpdateTodo";
 
 interface Props {
   todo: Todo;
 }
 const TodoItem = ({ todo }: Props) => {
-  const [isCompleted, setIsCompleted] = useState<boolean>(todo.isCompleted);
-
   const removeTodo = async (id: number) => {
     const token = getCurrentUser();
 
@@ -19,12 +17,6 @@ const TodoItem = ({ todo }: Props) => {
     }
   };
 
-  const handleIsCompletedChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { checked } = e.target;
-
-    setIsCompleted(checked);
-  };
-
   const handleDeleteClick = (id: number) => {
     removeTodo(id);
   };
@@ -32,15 +24,7 @@ const TodoItem = ({ todo }: Props) => {
   return (
     <li>
       <label>
-        <span>{todo.todo}</span>
-        <input
-          type="checkbox"
-          checked={isCompleted}
-          onChange={handleIsCompletedChange}
-        />
-        <button data-testid="modify-button" type="button">
-          update
-        </button>
+        <UpdateTodo data={todo} />
         <button
           data-testid="delete-button"
           type="button"
