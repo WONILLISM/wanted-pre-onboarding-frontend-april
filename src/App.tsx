@@ -1,5 +1,13 @@
+import Router from "./router";
+import GlobalStyle from "./style/globalStyle";
+
 function App() {
-  return <div className="App"></div>;
+  return (
+    <>
+      <GlobalStyle />
+      <Router />
+    </>
+  );
 }
 
 export default App;
