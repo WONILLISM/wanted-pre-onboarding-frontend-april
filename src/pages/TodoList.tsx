@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Todo } from "../common/interfaces/todo";
-import { getTodos, postTodo } from "../common/api/todo";
+import { getTodos } from "../common/api/todo";
 import { getCurrentUser } from "../common/api/auth";
+import AddTodo from "../components/Todo/AddTodo";
 
 const TodoList = () => {
   const [todos, setTodos] = useState<Todo[] | null>(null);
@@ -21,14 +22,7 @@ const TodoList = () => {
   console.log(todos);
   return (
     <div>
-      <button
-        onClick={() => {
-          const token = getCurrentUser();
-          postTodo("test todo", token);
-        }}
-      >
-        test add
-      </button>
+      <AddTodo />
       <ul>
         {todos &&
           todos.map((todo, index) => (
