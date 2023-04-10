@@ -38,3 +38,16 @@ export const postTodo = async (todo: string, token: string | null) => {
     return response.data;
   } catch (error) {}
 };
+
+export const deleteTodo = async (id: number, token: string | null) => {
+  try {
+    const response = await apiClient.delete(`/todos/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return true;
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -1,5 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import { Todo } from "../../common/interfaces/todo";
+import { deleteTodo } from "../../common/api/todo";
+import { getCurrentUser } from "../../common/api/auth";
 
 interface Props {
   todo: Todo;
@@ -7,10 +9,24 @@ interface Props {
 const TodoItem = ({ todo }: Props) => {
   const [isCompleted, setIsCompleted] = useState<boolean>(todo.isCompleted);
 
+  const removeTodo = async (id: number) => {
+    const token = getCurrentUser();
+
+    const result = await deleteTodo(id, token);
+
+    if (result) {
+      console.log("삭제 성공");
+    }
+  };
+
   const handleIsCompletedChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { checked } = e.target;
 
     setIsCompleted(checked);
+  };
+
+  const handleDeleteClick = (id: number) => {
+    removeTodo(id);
   };
 
   return (
@@ -25,7 +41,11 @@ const TodoItem = ({ todo }: Props) => {
         <button data-testid="modify-button" type="button">
           update
         </button>
-        <button data-testid="delete-button" type="button">
+        <button
+          data-testid="delete-button"
+          type="button"
+          onClick={() => handleDeleteClick(todo.id)}
+        >
           delete
         </button>
       </label>
