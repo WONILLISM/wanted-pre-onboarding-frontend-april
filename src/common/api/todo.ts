@@ -39,6 +39,32 @@ export const postTodo = async (todo: string, token: string | null) => {
   } catch (error) {}
 };
 
+export const putTodo = async (
+  id: number,
+  token: string | null,
+  todo: string,
+  isCompleted: boolean
+) => {
+  try {
+    const response = await apiClient.put(
+      `/todos/${id}`,
+      {
+        todo: todo,
+        isCompleted: isCompleted,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const deleteTodo = async (id: number, token: string | null) => {
   try {
     const response = await apiClient.delete(`/todos/${id}`, {
