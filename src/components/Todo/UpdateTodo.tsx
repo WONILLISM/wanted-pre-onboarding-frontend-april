@@ -1,7 +1,28 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { Todo } from "../../common/interfaces/todo";
 import { getCurrentUser } from "../../common/api/auth";
 import { putTodo } from "../../common/api/todo";
+import TextField from "../Inputs/TextField";
+import styled from "styled-components";
+
+import {
+  MdCreate as MdCreateIcon,
+  MdCancel as MdCancelIcon,
+  MdCheck as MdCheckIcon,
+} from "react-icons/md";
+import IconButton from "../IconButton";
+
+const RootStyle = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+`;
+
+const Label = styled.label`
+  flex: 1;
+  display: flex;
+  gap: 8px;
+`;
 
 interface Props {
   data: Todo;
@@ -50,51 +71,52 @@ const UpdateTodo = ({ data }: Props) => {
     setIsCompleted(checked);
   };
 
-  console.log(data);
-
   return (
-    <>
-      {modify ? (
+    <RootStyle>
+      <Label>
         <input
-          data-testid="modify-input"
-          value={todo}
-          onChange={handleTodoChange}
+          type="checkbox"
+          checked={isCompleted}
+          onChange={handleIsCompletedChange}
         />
-      ) : (
-        <span>{data.todo}</span>
-      )}
-      <input
-        type="checkbox"
-        checked={isCompleted}
-        onChange={handleIsCompletedChange}
-      />
+        {modify ? (
+          <TextField
+            data-testid="modify-input"
+            variant="standard"
+            range="small"
+            type="text"
+            value={todo}
+            onChange={handleTodoChange}
+          />
+        ) : (
+          <div>{data.todo}</div>
+        )}
+      </Label>
+
       {modify ? (
         <>
-          <button
+          <IconButton
             data-testid="submit-button"
             type="button"
             onClick={handleSubmitClick}
-          >
-            submit
-          </button>
-          <button
+            icon={<MdCheckIcon color="#0d5c75" />}
+          />
+          <IconButton
             data-testid="cancel-button"
             type="button"
             onClick={handleCancelClick}
-          >
-            cancel
-          </button>
+            icon={<MdCancelIcon color="#0d5c75" />}
+          />
         </>
       ) : (
-        <button
+        <IconButton
           data-testid="modify-button"
           type="button"
           onClick={handleModifyClick}
-        >
-          update
-        </button>
+          icon={<MdCreateIcon color="#0d5c75" />}
+        />
       )}
-    </>
+    </RootStyle>
   );
 };
 

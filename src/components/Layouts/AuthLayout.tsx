@@ -8,7 +8,6 @@ const RootStyle = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: #0d5c75;
 
   display: flex;
   flex-direction: column;
