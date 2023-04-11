@@ -1,7 +1,7 @@
 import React, { createContext, useState } from "react";
 import { Todo } from "../interfaces/todo";
 import { getCurrentUser } from "../api/auth";
-import { getTodos, postTodo, putTodo } from "../api/todo";
+import { deleteTodo, getTodos, postTodo, putTodo } from "../api/todo";
 
 interface TodoContextType {
   todos: Todo[] | null;
@@ -28,7 +28,13 @@ export const TodoProvider = ({ children }: TodoProviderProps) => {
   const [todos, setTodos] = useState<Todo[] | null>(null);
 
   const addTodo = async (todo: string) => {
-    const postTodoRes = await postTodo(todo);
+    const postResult = await postTodo(todo);
+
+    if (postResult) {
+      fetchTodos();
+    } else {
+      console.log("TODO 추가에 실패했습니다.");
+    }
   };
 
   const fetchTodos = async () => {
@@ -36,6 +42,8 @@ export const TodoProvider = ({ children }: TodoProviderProps) => {
 
     if (todosResult) {
       setTodos(todosResult);
+    } else {
+      console.log("TODO 목록 조회에 실패했습니다.");
     }
   };
 
@@ -48,10 +56,24 @@ export const TodoProvider = ({ children }: TodoProviderProps) => {
     todo: string;
     isCompleted: boolean;
   }) => {
-    const result = await putTodo(id, todo, isCompleted);
+    const updateResult = await putTodo(id, todo, isCompleted);
+
+    if (updateResult) {
+      fetchTodos();
+    } else {
+      console.log("TODO 업데이트에 실패했습니다.");
+    }
   };
 
-  const removeTodo = (id: number) => {};
+  const removeTodo = async (id: number) => {
+    const removeResult = await deleteTodo(id);
+
+    if (removeResult === "success") {
+      fetchTodos();
+    } else {
+      console.log("TODO 삭제에 실패했습니다.");
+    }
+  };
 
   return (
     <TodoContext.Provider

@@ -2,7 +2,12 @@ import apiClient from ".";
 import { Todo } from "../interfaces/todo";
 import { getCurrentUser } from "./auth";
 
-export const getTodos = async (): Promise<Todo[] | null> => {
+type GetTodosResult = Todo[] | null;
+type PostTodoResult = Todo | null;
+type PutTodoResult = Todo | null;
+type DeleteTodoResult = "success" | "fail";
+
+export const getTodos = async (): Promise<GetTodosResult> => {
   const token = getCurrentUser();
 
   try {
@@ -12,17 +17,14 @@ export const getTodos = async (): Promise<Todo[] | null> => {
       },
     });
 
-    if (response.status === 200) {
-      return response.data;
-    }
-    return null;
+    return response.data;
   } catch (error) {
     console.log(error);
     return null;
   }
 };
 
-export const postTodo = async (todo: string) => {
+export const postTodo = async (todo: string): Promise<PostTodoResult> => {
   const token = getCurrentUser();
 
   try {
@@ -39,14 +41,17 @@ export const postTodo = async (todo: string) => {
       }
     );
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };
 
 export const putTodo = async (
   id: number,
   todo: string,
   isCompleted: boolean
-) => {
+): Promise<PutTodoResult> => {
   try {
     const token = getCurrentUser();
 
@@ -66,10 +71,11 @@ export const putTodo = async (
     return response.data;
   } catch (error) {
     console.log(error);
+    return null;
   }
 };
 
-export const deleteTodo = async (id: number) => {
+export const deleteTodo = async (id: number): Promise<DeleteTodoResult> => {
   try {
     const token = getCurrentUser();
 
@@ -78,8 +84,9 @@ export const deleteTodo = async (id: number) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    return true;
+    return "success";
   } catch (error) {
     console.log(error);
+    return "fail";
   }
 };
