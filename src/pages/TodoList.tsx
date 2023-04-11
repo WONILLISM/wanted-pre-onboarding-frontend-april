@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Todo } from "../common/interfaces/todo";
 import { getTodos } from "../common/api/todo";
 import { getCurrentUser } from "../common/api/auth";
@@ -6,6 +6,8 @@ import AddTodo from "../components/Todo/AddTodo";
 import TodoItem from "../components/Todo/TodoItem";
 import styled from "styled-components";
 import { TodoListCard } from "../components/Todo/TodoListCard";
+import { TodoContext } from "../common/contexts/TodoContext";
+import { useTodo } from "../common/hooks/useTodo";
 
 const Title = styled.div`
   display: flex;
@@ -52,20 +54,13 @@ const RootStyle = styled.div`
 `;
 
 const TodoList = () => {
-  const [todos, setTodos] = useState<Todo[] | null>(null);
-
-  const fetchTodos = async () => {
-    const token = getCurrentUser();
-    const todosResult = await getTodos(token);
-
-    if (todosResult) {
-      setTodos(todosResult);
-    }
-  };
+  const { todos, fetchTodos } = useTodo();
 
   useEffect(() => {
     fetchTodos();
   }, []);
+
+  console.log(todos);
 
   return (
     <RootStyle>

@@ -11,6 +11,7 @@ import {
   MdCheck as MdCheckIcon,
 } from "react-icons/md";
 import IconButton from "../IconButton";
+import { useTodo } from "../../common/hooks/useTodo";
 
 const RootStyle = styled.div`
   flex: 1;
@@ -29,15 +30,11 @@ interface Props {
 }
 
 const UpdateTodo = ({ data }: Props) => {
+  const { updateTodo } = useTodo();
+
   const [modify, setModify] = useState<boolean>(false);
   const [todo, setTodo] = useState<string>(data.todo);
   const [isCompleted, setIsCompleted] = useState<boolean>(data.isCompleted);
-
-  const updateTodo = async (id: number) => {
-    const token = getCurrentUser();
-
-    const result = await putTodo(id, token, todo, isCompleted);
-  };
 
   const handleModifyClick = () => {
     setModify(true);
@@ -47,7 +44,11 @@ const UpdateTodo = ({ data }: Props) => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    updateTodo(data.id);
+    updateTodo({
+      id: data.id,
+      todo,
+      isCompleted,
+    });
     setModify(false);
   };
 
