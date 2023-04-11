@@ -1,6 +1,39 @@
 import React, { ChangeEvent, useState } from "react";
 import { postTodo } from "../../common/api/todo";
 import { getCurrentUser } from "../../common/api/auth";
+import TextField from "../Inputs/TextField";
+import styled from "styled-components";
+
+import { MdAdd as MdAddIcon } from "react-icons/md";
+
+const AddButton = styled.button`
+  all: unset;
+  font-size: 1.5rem;
+  border-radius: 8px;
+
+  display: flex;
+  align-items: center;
+
+  background-color: #199fb1;
+  color: #f9f9f9;
+
+  &:hover {
+    cursor: pointer;
+  }
+  &:disabled {
+    pointer-events: none;
+    cursor: default;
+    background-color: #a3a3a3;
+  }
+`;
+
+const RootStyle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: #0d5c75;
+`;
 
 const AddTodo = () => {
   const [todo, setTodo] = useState<string>("");
@@ -23,17 +56,23 @@ const AddTodo = () => {
   };
 
   return (
-    <div>
-      <input
-        type="text"
+    <RootStyle>
+      <TextField
         data-testid="new-todo-input"
+        variant="standard"
+        range="small"
+        type="text"
         value={todo}
         onChange={handleTodoChange}
       />
-      <button data-testid="new-todo-add-button" onClick={handleAddButton}>
-        add
-      </button>
-    </div>
+      <AddButton
+        disabled={todo === ""}
+        data-testid="new-todo-add-button"
+        onClick={handleAddButton}
+      >
+        <MdAddIcon />
+      </AddButton>
+    </RootStyle>
   );
 };
 
