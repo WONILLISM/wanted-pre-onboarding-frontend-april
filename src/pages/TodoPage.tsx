@@ -1,6 +1,6 @@
 import React from "react";
 import { TodoProvider } from "../common/contexts/TodoContext";
-import TodoList from "./TodoList";
+import TodoList from "../components/Todo/TodoList";
 
 const TodoPage = () => {
   return (

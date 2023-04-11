@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Todo } from "../common/interfaces/todo";
-import { getTodos } from "../common/api/todo";
-import { getCurrentUser } from "../common/api/auth";
-import AddTodo from "../components/Todo/AddTodo";
-import TodoItem from "../components/Todo/TodoItem";
+import { Todo } from "../../common/interfaces/todo";
+import { getTodos } from "../../common/api/todo";
+import { getCurrentUser } from "../../common/api/auth";
+import AddTodo from "./AddTodo";
+import TodoItem from "./TodoItem";
 import styled from "styled-components";
-import { TodoListCard } from "../components/Todo/TodoListCard";
-import { TodoContext } from "../common/contexts/TodoContext";
-import { useTodo } from "../common/hooks/useTodo";
+import { TodoListCard } from "./TodoListCard";
+import { TodoContext } from "../../common/contexts/TodoContext";
+import { useTodo } from "../../common/hooks/useTodo";
 
 const Title = styled.div`
   display: flex;

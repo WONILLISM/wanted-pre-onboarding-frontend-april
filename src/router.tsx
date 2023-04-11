@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { getCurrentUser } from "./common/api/auth";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthLayout from "./components/Layouts/AuthLayout";
 import MainLayout from "./components/Layouts/MainLayout";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
-import TodoList from "./pages/TodoList";
+import SignInPage from "./pages/SignInPage";
+import SignUpPage from "./pages/SignUpPage";
 import TodoPage from "./pages/TodoPage";
 
 const Router = () => {
@@ -13,8 +10,8 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route element={<AuthLayout />}>
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signin" element={<SignInPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
         </Route>
         <Route element={<MainLayout />}>
           <Route path="/todo" element={<TodoPage />} />
