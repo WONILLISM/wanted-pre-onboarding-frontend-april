@@ -2,9 +2,10 @@ import React, { InputHTMLAttributes } from "react";
 import styled, { css } from "styled-components";
 
 const RootStyle = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 12px 0px 4px 0px;
+  /* display: flex;
+  flex-direction: column; */
+  margin: 8px 0px 4px 0px;
+
   position: relative;
 `;
 
@@ -32,20 +33,49 @@ const Label = styled.label<{ value?: string | number | readonly string[] }>`
         `}
 `;
 
-const Input = styled.input`
-  padding: 12px 8px 8px 8px;
+const Input = styled.input<{
+  variant: "standard" | "outlined";
+  range: "small" | "medium" | "large";
+}>`
+  all: unset;
+  box-sizing: border-box;
+  width: 100%;
+  ${(props) =>
+    props.range === "small"
+      ? "padding: 0;"
+      : props.range === "medium"
+      ? "padding: 8px 12px;"
+      : ""}
+
   background-color: inherit;
-  border: 2px solid rgba(0, 0, 0, 0.23);
-  border-radius: 8px;
 
-  &:focus {
-    border: 2px solid #199fb1;
-  }
+  ${(props) =>
+    props.variant === "standard"
+      ? css`
+          border-bottom: 2px solid rgba(0, 0, 0, 0.23);
 
-  &:focus-visible {
-    outline: none !important;
-    border: 2px solid #199fb1;
-  }
+          &:focus {
+            border-bottom: 2px solid #199fb1;
+          }
+
+          &:focus-visible {
+            outline: none !important;
+            border-bottom: 2px solid #199fb1;
+          }
+        `
+      : css`
+          border: 2px solid rgba(0, 0, 0, 0.23);
+          border-radius: 8px;
+
+          &:focus {
+            border: 2px solid #199fb1;
+          }
+
+          &:focus-visible {
+            outline: none !important;
+            border: 2px solid #199fb1;
+          }
+        `}
 
   &:focus + ${Label} {
     color: #ffffff;
@@ -66,14 +96,18 @@ const HelpText = styled.div<{ error?: boolean }>`
   color: ${(props) => (props.error ? "#0F5F77" : "#db4647")};
 `;
 
-interface TextFiledProps extends InputHTMLAttributes<HTMLInputElement> {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
+  variant?: "standard" | "outlined";
   dataTestid?: string;
   helpText?: string;
   label?: string;
   isValid?: boolean;
+  range?: "small" | "medium" | "large";
 }
 
 const TextField = ({
+  variant = "outlined",
+  range = "medium",
   dataTestid,
   name,
   label,
@@ -81,10 +115,19 @@ const TextField = ({
   helpText,
   isValid,
   ...rest
-}: TextFiledProps) => {
+}: Props) => {
   return (
     <RootStyle>
-      <Input data-testid={dataTestid} id={name} name={name} {...rest} />
+      <Input
+        data-testid={dataTestid}
+        variant={variant}
+        range={range}
+        id={name}
+        name={name}
+        value={value}
+        {...rest}
+      />
+
       {label && (
         <Label htmlFor={name} value={value}>
           {label}
