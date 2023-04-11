@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 import { MdDelete as MdDeleteIcon } from "react-icons/md";
 import IconButton from "../IconButton";
+import { useTodo } from "../../common/hooks/useTodo";
 
 const Item = styled.li`
   display: flex;
@@ -17,15 +18,7 @@ interface Props {
   todo: Todo;
 }
 const TodoItem = ({ todo }: Props) => {
-  const removeTodo = async (id: number) => {
-    const token = getCurrentUser();
-
-    const result = await deleteTodo(id, token);
-
-    if (result) {
-      console.log("삭제 성공");
-    }
-  };
+  const { removeTodo } = useTodo();
 
   const handleDeleteClick = (id: number) => {
     removeTodo(id);

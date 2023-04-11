@@ -5,6 +5,7 @@ import TextField from "../Inputs/TextField";
 import styled from "styled-components";
 
 import { MdAdd as MdAddIcon } from "react-icons/md";
+import { useTodo } from "../../common/hooks/useTodo";
 
 const AddButton = styled.button`
   all: unset;
@@ -36,16 +37,12 @@ const RootStyle = styled.div`
 `;
 
 const AddTodo = () => {
+  const { addTodo } = useTodo();
+
   const [todo, setTodo] = useState<string>("");
 
-  const createTodo = async (token: string | null) => {
-    const postTodoRes = await postTodo(todo, token);
-  };
-
   const handleAddButton = () => {
-    const token = getCurrentUser();
-
-    createTodo(token);
+    addTodo(todo);
     setTodo("");
   };
 

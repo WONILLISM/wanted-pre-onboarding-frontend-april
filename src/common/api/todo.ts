@@ -1,9 +1,10 @@
 import apiClient from ".";
 import { Todo } from "../interfaces/todo";
+import { getCurrentUser } from "./auth";
 
-export const getTodos = async (
-  token: string | null
-): Promise<Todo[] | null> => {
+export const getTodos = async (): Promise<Todo[] | null> => {
+  const token = getCurrentUser();
+
   try {
     const response = await apiClient.get("/todos", {
       headers: {
@@ -21,7 +22,9 @@ export const getTodos = async (
   }
 };
 
-export const postTodo = async (todo: string, token: string | null) => {
+export const postTodo = async (todo: string) => {
+  const token = getCurrentUser();
+
   try {
     const response = await apiClient.post(
       "/todos",
@@ -41,11 +44,12 @@ export const postTodo = async (todo: string, token: string | null) => {
 
 export const putTodo = async (
   id: number,
-  token: string | null,
   todo: string,
   isCompleted: boolean
 ) => {
   try {
+    const token = getCurrentUser();
+
     const response = await apiClient.put(
       `/todos/${id}`,
       {
@@ -65,8 +69,10 @@ export const putTodo = async (
   }
 };
 
-export const deleteTodo = async (id: number, token: string | null) => {
+export const deleteTodo = async (id: number) => {
   try {
+    const token = getCurrentUser();
+
     const response = await apiClient.delete(`/todos/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
